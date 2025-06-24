@@ -1,0 +1,51 @@
+# A GitHub Action to download RSS feeds from various sources
+# Runs each night, used to populate my website's activity feed
+
+name: 📥 Download RSS Feeds
+
+on:
+  workflow_dispatch: # Manual dispatch
+  schedule:
+    - cron: '0 23 * * *' # At 23:00 each day
+    
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3.3.0
+        
+      - name: Get Date 📅
+        id: date
+        run: echo "::set-output name=date::$(date +'%d-%b-%Y')"
+                
+      - name: Download Feeds 📬
+        run: |
+          fetch_feed() { curl "${1}" --fail --connect-timeout 10 --max-time 15 --retry 3 --retry-delay 10 --retry-max-time 90 -o "${2}"; }
+          
+          
+          fetch_feed "https://joechs.bearblog.dev/feed/" "./blog.atom"
+          fetch_feed "https://listed.to/@joechs/feed" "./blog.atom"
+          # it could be the following url with a paid plan: fetch_feed "https://notes.chartois.com/feed" "./blog.atom"
+          fetch_feed "https://stackoverflow.com/feeds/user/30795820" "./stackoverflow.atom"
+          fetch_feed "https://github.com/JosephCHS.atom" "./github.atom"
+          # fetch_feed "https://YOUR_USERNAME.blogspot.com/feeds/posts/default" "./blogger.atom"
+          # fetch_feed "https://dev.to/feed/YOUR_USERNAME" "./dev-to.atom"
+          # fetch_feed "https://nitter.net/YOUR_USERNAME/rss" "./twitter.atom"
+          # fetch_feed "https://nitter.fdn.fr/YOUR_USERNAME/rss" "./twitter.atom"
+          # fetch_feed "https://reddit.com/user/YOUR_USERNAME/submitted.rss" "./reddit.atom"
+          # fetch_feed "https://mastodon.social/users/YOUR_USERNAME.rss" "./mastodon.atom"
+          # fetch_feed "https://www.youtube.com/feeds/videos.xml?channel_id=YOUR_CHANNEL_ID" "./youtube.atom"
+
+      - name: Commit ✒️
+        run: |
+          git config --local user.email "t26ncgv1@chartois.com"
+          git config --local user.name "joechs-bot"
+          git add .
+          git commit -m "🗞️ Downloads RSS Feed - Updated on ${{ steps.date.outputs.date }}"
+          
+      - name: Push ⤴️
+        uses: ad-m/github-push-action@master
+        with:
+          github_token:  ${{ secrets.BOT_GITHUB_TOKEN || github.token }}
+          branch: ${{ github.ref }}

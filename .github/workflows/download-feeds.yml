@@ -149,8 +149,8 @@ jobs:
         if: ${{ steps.download.outputs.successful_feeds != '0' && steps.commit.outputs.skip_push != 'true' }}
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.BOT_GITHUB_TOKEN || github.token }}
-          branch: ${{ github.ref }}
+          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          branch: main
           
       - name: Summary 📋
         if: always()

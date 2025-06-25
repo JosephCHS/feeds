@@ -1,8 +1,6 @@
 # A GitHub Action to download RSS feeds from various sources 
 # Runs each night, used to populate my website's activity feed
-
 name: 📥 Download RSS Feeds
-
 on:
   workflow_dispatch: # Manual dispatch
   schedule:
@@ -13,43 +11,162 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v4
         
       - name: Get Date 📅
         id: date
-        #run: echo "::set-output name=date::$(date +'%d-%b-%Y')"
         run: echo "date=$(date +'%d-%b-%Y')" >> $GITHUB_OUTPUT
+        
+      - name: Download Feeds 📬
+        id: download
+        
       - name: Download Feeds 📬
         run: |
-          fetch_feed() { curl "${1}" --fail --connect-timeout 10 --max-time 15 --retry 3 --retry-delay 10 --retry-max-time 90 -o "${2}"; }
+          # Enhanced fetch function with better error handling
+          fetch_feed() {
+            local url="$1"
+            local output="$2"
+            local feed_name="$3"
+            
+            echo "🔄 Downloading $feed_name from $url..."
+            
+            if curl "${url}" \
+                --fail \
+                --silent \
+                --show-error \
+                --connect-timeout 10 \
+                --max-time 30 \
+                --retry 3 \
+                --retry-delay 5 \
+                --retry-max-time 120 \
+                --user-agent "GitHub-Action-RSS-Fetcher/1.0" \
+                -o "${output}"; then
+              
+              # Verify the downloaded file is valid XML/Atom
+              if [ -s "${output}" ] && head -n 5 "${output}" | grep -qi -E "(xml|rss|feed|atom)"; then
+                echo "✅ Successfully downloaded $feed_name ($(wc -c < "${output}") bytes)"
+              else
+                echo "⚠️  Downloaded $feed_name but content appears invalid, removing file"
+                rm -f "${output}"
+                return 1
+              fi
+            else
+              local exit_code=$?
+              echo "❌ Failed to download $feed_name (exit code: $exit_code)"
+              rm -f "${output}" 2>/dev/null || true
+              return $exit_code
+            fi
+          }
           
+          # Initialize counters
+          total_feeds=0
+          successful_feeds=0
+          failed_feeds=0
           
-          fetch_feed "https://joechs.bearblog.dev/feed/" "./blog.atom"
-          fetch_feed "https://listed.to/@joechs/feed" "./blog.atom"
-          # it could be the following url with a paid plan: fetch_feed "https://notes.chartois.com/feed" "./blog.atom"
-          fetch_feed "https://stackoverflow.com/feeds/user/30795820" "./stackoverflow.atom"
-          fetch_feed "https://github.com/JosephCHS.atom" "./github.atom"
-          # fetch_feed "https://YOUR_USERNAME.blogspot.com/feeds/posts/default" "./blogger.atom"
-          # fetch_feed "https://dev.to/feed/YOUR_USERNAME" "./dev-to.atom"
-          # fetch_feed "https://nitter.net/YOUR_USERNAME/rss" "./twitter.atom"
-          # fetch_feed "https://nitter.fdn.fr/YOUR_USERNAME/rss" "./twitter.atom"
-          # fetch_feed "https://reddit.com/user/YOUR_USERNAME/submitted.rss" "./reddit.atom"
-          # fetch_feed "https://mastodon.social/users/YOUR_USERNAME.rss" "./mastodon.atom"
-          # fetch_feed "https://www.youtube.com/feeds/videos.xml?channel_id=YOUR_CHANNEL_ID" "./youtube.atom"
-
+          echo "🚀 Starting RSS feed downloads..."
+          echo "📅 Date: $(date)"
+          echo ""
+          
+          # Download feeds with descriptive names
+          feeds=(
+            "https://joechs.bearblog.dev/feed/|./bearblog.atom|Bear Blog"
+            "https://listed.to/@joechs/feed|./listed.atom|Listed Blog"
+            "https://stackoverflow.com/feeds/user/30795820|./stackoverflow.atom|Stack Overflow"
+            "https://github.com/JosephCHS.atom|./github.atom|GitHub Activity"
+          )
+          
+          # Uncomment and modify these as needed:
+          # "https://notes.chartois.com/feed|./notes.atom|Notes Blog"
+          # "https://YOUR_USERNAME.blogspot.com/feeds/posts/default|./blogger.atom|Blogger"
+          # "https://dev.to/feed/YOUR_USERNAME|./dev-to.atom|Dev.to"
+          # "https://nitter.net/YOUR_USERNAME/rss|./twitter.atom|Twitter (Nitter)"
+          # "https://reddit.com/user/YOUR_USERNAME/submitted.rss|./reddit.atom|Reddit"
+          # "https://mastodon.social/users/YOUR_USERNAME.rss|./mastodon.atom|Mastodon"
+          # "https://www.youtube.com/feeds/videos.xml?channel_id=YOUR_CHANNEL_ID|./youtube.atom|YouTube"
+          
+          for feed_info in "${feeds[@]}"; do
+            IFS='|' read -r url output name <<< "$feed_info"
+            total_feeds=$((total_feeds + 1))
+            
+            if fetch_feed "$url" "$output" "$name"; then
+              successful_feeds=$((successful_feeds + 1))
+            else
+              failed_feeds=$((failed_feeds + 1))
+            fi
+            echo ""
+          done
+          
+          # Summary
+          echo "📊 Download Summary:"
+          echo "   Total feeds: $total_feeds"
+          echo "   Successful: $successful_feeds"
+          echo "   Failed: $failed_feeds"
+          
+          # Set outputs for use in subsequent steps
+          echo "total_feeds=$total_feeds" >> $GITHUB_OUTPUT
+          echo "successful_feeds=$successful_feeds" >> $GITHUB_OUTPUT
+          echo "failed_feeds=$failed_feeds" >> $GITHUB_OUTPUT
+          
+          # Continue even if some feeds failed (don't exit with error)
+          if [ $successful_feeds -gt 0 ]; then
+            echo "✅ At least one feed downloaded successfully, continuing..."
+            exit 0
+          else
+            echo "❌ All feeds failed to download!"
+            exit 1
+          fi
+          
       - name: Commit ✒️
+        id: commit
+        # Only run if at least one feed was downloaded successfully
+        if: steps.download.outputs.successful_feeds > 0
         run: |
           git config --local user.email "t26ncgv1@chartois.com"
           git config --local user.name "joechs-bot"
           git add .
-          git commit -m "🗞️ Downloads RSS Feed - Updated on ${{ steps.date.outputs.date }}"
+          
+          # Check if there are actually changes to commit
+          if ! git diff --staged --quiet; then
+            # Create commit message with download stats
+            commit_msg="🗞️ RSS Feed Update - ${{ steps.date.outputs.date }}
+            
+            📊 Downloaded ${{ steps.download.outputs.successful_feeds }}/${{ steps.download.outputs.total_feeds }} feeds successfully"
+            
+            # Add list of failed feeds if any
+            if [ "${{ steps.download.outputs.failed_feeds }}" -gt 0 ]; then
+              commit_msg="$commit_msg
+              ⚠️  ${{ steps.download.outputs.failed_feeds }} feed(s) failed"
+            fi
+            
+            git commit -m "$commit_msg"
+            echo "✅ Changes committed successfully"
+          else
+            echo "ℹ️  No changes detected in feed files"
+            # Set output to skip push step
+            echo "skip_push=true" >> $GITHUB_OUTPUT
+          fi
+          
       - name: Push ⤴️
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
-          branch: ${{ github.ref }}          
-      - name: Push ⤴️
+        # Only push if we have commits and didn't skip due to no changes
+        if: steps.download.outputs.successful_feeds > 0 && steps.commit.outputs.skip_push != 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+          
+      - name: Summary 📋
+        if: always()  # Run even if previous steps failed
+        run: |
+          echo "## 📊 RSS Feed Download Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** ${{ steps.date.outputs.date }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Total Feeds:** ${{ steps.download.outputs.total_feeds || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Successful:** ${{ steps.download.outputs.successful_feeds || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Failed:** ${{ steps.download.outputs.failed_feeds || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.download.outputs.successful_feeds || '0' }}" -gt 0 ]; then
+            echo "✅ **Status:** Completed successfully" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Status:** All downloads failed" >> $GITHUB_STEP_SUMMARY
+          fi

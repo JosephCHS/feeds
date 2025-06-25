@@ -43,9 +43,13 @@ jobs:
           git config --local user.name "joechs-bot"
           git add .
           git commit -m "🗞️ Downloads RSS Feed - Updated on ${{ steps.date.outputs.date }}"
-          
       - name: Push ⤴️
         uses: ad-m/github-push-action@master
         with:
-          github_token:  ${{ secrets.BOT_GITHUB_TOKEN }}
+          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          branch: ${{ github.ref }}          
+      - name: Push ⤴️
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: ${{ github.ref }}

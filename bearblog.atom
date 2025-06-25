@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://joechs.bearblog.dev</id>
+  <title>My first notes</title>
+  <updated>2025-06-25T14:23:42.691381+00:00</updated>
+  <author>
+    <name>joechs</name>
+    <email>hidden</email>
+  </author>
+  <link href="https://joechs.bearblog.dev/" rel="alternate"/>
+  <link href="https://joechs.bearblog.dev/feed/" rel="self"/>
+  <generator uri="https://lkiesow.github.io/python-feedgen" version="0.9.0">python-feedgen</generator>
+  <subtitle>Some Blog text...&#13;
+An other text again......</subtitle>
+  <entry>
+    <id>https://joechs.bearblog.dev/new-post/</id>
+    <title>New post</title>
+    <updated>2025-06-24T15:33:18.623040+00:00</updated>
+    <author>
+      <name>joechs</name>
+      <email>hidden</email>
+    </author>
+    <content type="html">&lt;p&gt;Some text...&lt;/p&gt;
+</content>
+    <link href="https://joechs.bearblog.dev/new-post/" rel="alternate"/>
+    <published>2025-06-24T15:33:18.622692+00:00</published>
+  </entry>
+</feed>

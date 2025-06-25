@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:re="http://purl.org/atompub/rank/1.0">
+    <title type="text">User Joe - Stack Overflow</title>
+    <link rel="self" href="https://stackoverflow.com/feeds/user/30795820" type="application/atom+xml" />
+    <link rel="alternate" href="https://stackoverflow.com/users/30795820" type="text/html" />
+    <subtitle>most recent 30 from stackoverflow.com</subtitle>
+    <updated>2025-06-25T15:21:35Z</updated>
+    <id>https://stackoverflow.com/feeds/user/30795820</id>
+    <creativeCommons:license>https://creativecommons.org/licenses/by-sa/4.0/rdf</creativeCommons:license> 
+</feed>

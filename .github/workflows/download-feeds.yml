@@ -147,13 +147,10 @@ jobs:
           
       - name: Push ⤴️
         if: ${{ steps.download.outputs.successful_feeds != '0' && steps.commit.outputs.skip_push != 'true' }}
-        run: |
-          # Configure git to use the bot token for authentication
-          git remote set-url origin https://x-access-token:${{ secrets.BOT_GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          
-          # Push the changes
-          git push origin ${{ github.ref_name }}
-          echo "✅ Changes pushed successfully"
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.BOT_GITHUB_TOKEN || github.token }}
+          branch: ${{ github.ref }}
           
       - name: Summary 📋
         if: always()

@@ -1,4 +1,4 @@
-# A GitHub Action to download RSS feeds from various sources
+# A GitHub Action to download RSS feeds from various sources 
 # Runs each night, used to populate my website's activity feed
 
 name: 📥 Download RSS Feeds

@@ -3,6 +3,7 @@
 <!-- stackoverflow-feed start -->
 <!-- stackoverflow-feed end -->
 <!-- github-feed start -->
+- `18 Aug 2025` - **[JosephCHS starred makhowastaken/AGS_LIPO](https://github.com/makhowastaken/AGS_LIPO)**
 - ` 2 Aug 2025` - **[JosephCHS starred GDX-X/PFS-BatchKit-Manager](https://github.com/GDX-X/PFS-BatchKit-Manager)**
 - `28 Jul 2025` - **[JosephCHS pushed to main in JosephCHS/auto-update-immich-safely](https://github.com/JosephCHS/auto-update-immich-safely/compare/2987463e94...0314f451f8)**
 <!-- github-feed end -->

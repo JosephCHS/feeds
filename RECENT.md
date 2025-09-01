@@ -5,7 +5,6 @@
 <!-- github-feed start -->
 - `20 Aug 2025` - **[JosephCHS starred lowlevel-1989/pokemmo-port](/lowlevel-1989/pokemmo-port)**
 - `18 Aug 2025` - **[JosephCHS starred makhowastaken/AGS_LIPO](/makhowastaken/AGS_LIPO)**
-- ` 2 Aug 2025` - **[JosephCHS starred GDX-X/PFS-BatchKit-Manager](/GDX-X/PFS-BatchKit-Manager)**
 <!-- github-feed end -->
 <!-- bearblog-feed start -->
 - `24 Jun 2025` - **[New post](https://joechs.bearblog.dev/new-post/)**

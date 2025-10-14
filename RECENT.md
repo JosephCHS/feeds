@@ -3,7 +3,6 @@
 <!-- stackoverflow-feed start -->
 <!-- stackoverflow-feed end -->
 <!-- github-feed start -->
-- `13 Sep 2025` - **[JosephCHS starred evanbowman/skyland-beta](https://github.com/evanbowman/skyland-beta)**
 <!-- github-feed end -->
 <!-- bearblog-feed start -->
 - `24 Jun 2025` - **[New post](https://joechs.bearblog.dev/new-post/)**

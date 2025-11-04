@@ -3,6 +3,8 @@
 <!-- stackoverflow-feed start -->
 <!-- stackoverflow-feed end -->
 <!-- github-feed start -->
+- ` 4 Nov 2025` - **[JosephCHS starred humhub/humhub](https://github.com/humhub/humhub)**
+- ` 4 Nov 2025` - **[JosephCHS starred open-condo-software/condo](https://github.com/open-condo-software/condo)**
 <!-- github-feed end -->
 <!-- bearblog-feed start -->
 - `24 Jun 2025` - **[New post](https://joechs.bearblog.dev/new-post/)**

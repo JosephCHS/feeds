@@ -3,8 +3,8 @@
 <!-- stackoverflow-feed start -->
 <!-- stackoverflow-feed end -->
 <!-- github-feed start -->
+- ` 7 Dec 2025` - **[JosephCHS starred deepspeedai/DeepSpeed](https://github.com/deepspeedai/DeepSpeed)**
 - `24 Nov 2025` - **[JosephCHS starred immich-app/immich](https://github.com/immich-app/immich)**
-- ` 6 Nov 2025` - **[JosephCHS starred AsyncFuncAI/deepwiki-open](https://github.com/AsyncFuncAI/deepwiki-open)**
 <!-- github-feed end -->
 <!-- bearblog-feed start -->
 - `24 Jun 2025` - **[New post](https://joechs.bearblog.dev/new-post/)**

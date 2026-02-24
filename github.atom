@@ -18,7 +18,7 @@
     <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/36419879?s=30&amp;v=4"/>
     <content type="html">&lt;div class=&quot;repo-push js-feed-item-view&quot;&gt;&lt;div class=&quot;body&quot;&gt;
 &lt;!-- push --&gt;
-&lt;div class=&quot;d-flex flex-items-baseline py-4&quot;&gt;
+&lt;div class=&quot;d-flex flex-items-baseline tmp-py-4&quot;&gt;
   &lt;div class=&quot;d-flex flex-column width-full&quot;&gt;
     &lt;div class=&quot;color-fg-muted&quot;&gt;
       &lt;span class=&quot;mr-2&quot;&gt;&lt;a class=&quot;d-inline-block&quot; href=&quot;/JosephCHS&quot; rel=&quot;noreferrer&quot;&gt;&lt;img class=&quot;avatar avatar-user&quot; src=&quot;https://avatars.githubusercontent.com/u/36419879?s=64&amp;amp;v=4&quot; width=&quot;32&quot; height=&quot;32&quot; alt=&quot;@JosephCHS&quot;&gt;&lt;/a&gt;&lt;/span&gt;
@@ -72,7 +72,7 @@
     <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/36419879?s=30&amp;v=4"/>
     <content type="html">&lt;div class=&quot;star js-feed-item-view&quot;&gt;&lt;div class=&quot;body&quot;&gt;
 &lt;!-- watch --&gt;
-&lt;div class=&quot;d-flex flex-items-baseline py-4&quot;&gt;
+&lt;div class=&quot;d-flex flex-items-baseline tmp-py-4&quot;&gt;
   &lt;div class=&quot;d-flex flex-column width-full&quot;&gt;
       &lt;div&gt;
         &lt;div class=&quot;d-flex flex-items-baseline&quot;&gt;

@@ -3,7 +3,6 @@
 <!-- stackoverflow-feed start -->
 <!-- stackoverflow-feed end -->
 <!-- github-feed start -->
-- ` 7 Mar 2026` - **[JosephCHS starred openclaw/openclaw](https://github.com/openclaw/openclaw)**
 <!-- github-feed end -->
 <!-- bearblog-feed start -->
 - `24 Jun 2025` - **[New post](https://joechs.bearblog.dev/new-post/)**

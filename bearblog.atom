@@ -2,10 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://joechs.bearblog.dev</id>
   <title>My first notes</title>
-  <updated>2026-05-07T23:40:41.484216+00:00</updated>
+  <updated>2026-05-08T23:42:38.602962+00:00</updated>
   <author>
     <name>joechs</name>
-    <email>hidden</email>
   </author>
   <link href="https://joechs.bearblog.dev/" rel="alternate"/>
   <link href="https://joechs.bearblog.dev/feed/" rel="self"/>

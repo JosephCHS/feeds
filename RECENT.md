@@ -3,6 +3,7 @@
 <!-- stackoverflow-feed start -->
 <!-- stackoverflow-feed end -->
 <!-- github-feed start -->
+- `26 Sep 2026` - **[JosephCHS starred openclaw/openclaw-ansible](https://github.com/openclaw/openclaw-ansible)**
 <!-- github-feed end -->
 <!-- bearblog-feed start -->
 - `24 Jun 2025` - **[New post](https://joechs.bearblog.dev/new-post/)**

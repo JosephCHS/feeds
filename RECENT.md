@@ -4,7 +4,6 @@
 <!-- stackoverflow-feed end -->
 <!-- github-feed start -->
 - `19 Oct 2026` - **[JosephCHS starred cRz-Shadows/Pokemon_Yellow_Legacy](https://github.com/cRz-Shadows/Pokemon_Yellow_Legacy)**
-- ` 9 Oct 2026` - **[JosephCHS starred blakeblackshear/frigate](https://github.com/blakeblackshear/frigate)**
 <!-- github-feed end -->
 <!-- bearblog-feed start -->
 - `24 Jun 2025` - **[New post](https://joechs.bearblog.dev/new-post/)**

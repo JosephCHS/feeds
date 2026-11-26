@@ -3,6 +3,7 @@
 <!-- stackoverflow-feed start -->
 <!-- stackoverflow-feed end -->
 <!-- github-feed start -->
+- `25 Nov 2026` - **[JosephCHS starred tsightler/ring-mqtt](https://github.com/tsightler/ring-mqtt)**
 - `21 Nov 2026` - **[JosephCHS starred Cloeille/picsou-finance](https://github.com/Cloeille/picsou-finance)**
 <!-- github-feed end -->
 <!-- bearblog-feed start -->
